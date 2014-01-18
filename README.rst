@@ -5,11 +5,11 @@ django-httplog
 .. image:: https://badge.fury.io/py/django-httplog.png
     :target: http://badge.fury.io/py/django-httplog
 
-.. image:: https://travis-ci.org/coagulant/django-httplog.png?branch=master
-    :target: https://travis-ci.org/coagulant/django-httplog
+.. image:: https://travis-ci.org/futurecolors/django-httplog.png?branch=master
+    :target: https://travis-ci.org/futurecolors/django-httplog
 
-.. image:: https://coveralls.io/repos/coagulant/django-httplog/badge.png?branch=master
-    :target: https://coveralls.io/r/coagulant/django-httplog?branch=master
+.. image:: https://coveralls.io/repos/futurecolors/django-httplog/badge.png?branch=master
+    :target: https://coveralls.io/r/futurecolors/django-httplog?branch=master
 
 
 Very simple http request-response log in database for debugging APIs.

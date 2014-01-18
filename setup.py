@@ -32,7 +32,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Ilya Baryshev',
     author_email='baryshev@gmail.com',
-    url='https://github.com/coagulant/django-httplog',
+    url='https://github.com/futurecolors/django-httplog',
     packages=[
         'httplog',
     ],
