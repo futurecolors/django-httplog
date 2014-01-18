@@ -1,14 +1,22 @@
 language: python
 python: 2.7
 env:
-    - TOX_ENV=py26-1.4.X
-    - TOX_ENV=py27-1.4.X
-    - TOX_ENV=py26-1.5.X
-    - TOX_ENV=py27-1.5.X
-    - TOX_ENV=py33-1.5.X
-    - TOX_ENV=py26-1.6.X
-    - TOX_ENV=py27-1.6.X
-    - TOX_ENV=py33-1.6.X
+  - TOX_ENV=py26-1.4.X
+  - TOX_ENV=py27-1.4.X
+  - TOX_ENV=py26-1.5.X
+  - TOX_ENV=py27-1.5.X
+  - TOX_ENV=py33-1.5.X
+  - TOX_ENV=py26-1.6.X
+  - TOX_ENV=py27-1.6.X
+  - TOX_ENV=py33-1.6.X
 install: pip install tox
 script: tox -e $TOX_ENV
 after_success: coveralls
+deploy:
+  provider: pypi
+  user: coagulant
+  password:
+    secure: T/KS6sYtq0vJE42gdLiinGJRRCRJAfNuHHwNj+PZo6xiRq5CqDIFqilfJNmjFbJyFVAZ2NRVevV4CsKZHv4iMm9C4aa4aQMuP9btw5kpF+RzFjxS55Q128TdqDdyxexMn85sfX4gYFHC+LmMnev55MFyIEt2gk4NJP+caC2K6to=
+  distributions: "sdist bdist wheel"
+  on:
+    tags: true
