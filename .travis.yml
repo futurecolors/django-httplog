@@ -1,14 +1,14 @@
 language: python
 python: 2.7
 env:
-  - TOX_ENV=py26-1.4.X
-  - TOX_ENV=py27-1.4.X
-  - TOX_ENV=py26-1.5.X
-  - TOX_ENV=py27-1.5.X
-  - TOX_ENV=py33-1.5.X
-  - TOX_ENV=py26-1.6.X
-  - TOX_ENV=py27-1.6.X
-  - TOX_ENV=py33-1.6.X
+- TOX_ENV=py26-1.4.X
+- TOX_ENV=py27-1.4.X
+- TOX_ENV=py26-1.5.X
+- TOX_ENV=py27-1.5.X
+- TOX_ENV=py33-1.5.X
+- TOX_ENV=py26-1.6.X
+- TOX_ENV=py27-1.6.X
+- TOX_ENV=py33-1.6.X
 install: pip install tox
 script: tox -e $TOX_ENV
 after_success: coveralls
@@ -16,7 +16,7 @@ deploy:
   provider: pypi
   user: coagulant
   password:
-    secure: T/KS6sYtq0vJE42gdLiinGJRRCRJAfNuHHwNj+PZo6xiRq5CqDIFqilfJNmjFbJyFVAZ2NRVevV4CsKZHv4iMm9C4aa4aQMuP9btw5kpF+RzFjxS55Q128TdqDdyxexMn85sfX4gYFHC+LmMnev55MFyIEt2gk4NJP+caC2K6to=
-  distributions: "sdist bdist wheel"
+    secure: FF691xb7t5z8nko2kJW01xj+QDvN0PKY8yXS/z3yx56h7mSAMtZQ5zw3Vm3+VtyG0S0v6n779fHC0mKhBKeByE85LogHrBLlu/01E4YsiJyhvqnyS7PV8oQbSNlN5Cf72dFzJQy98wQR9N4NRY/VGv0v/82RkiRhuviMSo0nNlA=
   on:
     tags: true
+    repo: futurecolors/django-httplog
