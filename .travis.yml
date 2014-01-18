@@ -9,6 +9,6 @@ env:
     - TOX_ENV=py26-1.6.X
     - TOX_ENV=py27-1.6.X
     - TOX_ENV=py33-1.6.X
-install: pip install -r requirements-test.txt
+install: pip install tox
 script: tox -e $TOX_ENV
 after_success: coveralls
