@@ -1,5 +1,7 @@
 # coding: utf-8
 import datetime
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.forms import ModelForm
@@ -7,6 +9,9 @@ from django.template.defaultfilters import truncatechars
 from django.utils.html import linebreaks
 from django.utils.safestring import mark_safe
 from httplog.models import Entry
+
+
+User = getattr(settings, 'AUTH_USER_MODEL', User)
 
 
 class EntryForm(ModelForm):
@@ -25,8 +30,8 @@ class UserFilter(SimpleListFilter):
     parameter_name = 'user'
 
     def lookups(self, request, model_admin):
-        users = set([log.user for log in model_admin.model.objects.all()])
-        return [(user.pk, user.username) for user in users if user]
+        users = [user for user in model_admin.model.objects.values_list('user', flat=True).distinct() if user]
+        return [(user.pk, user.username) for user in User.objects.filter(pk__in=users)]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -37,7 +42,7 @@ class UserFilter(SimpleListFilter):
 
 class CreatedFilter(SimpleListFilter):
     title = 'Time'
-    parameter_name = 'created'
+    parameter_name = 'created_at'
 
     def lookups(self, request, model_admin):
 
@@ -56,17 +61,17 @@ class CreatedFilter(SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value():
             timestamp = datetime.datetime.now() - datetime.timedelta(seconds=int(self.value()))
-            return queryset.filter(created__gt=timestamp)
+            return queryset.filter(created_at__gt=timestamp)
         else:
             return queryset
 
 
 class LogAdmin(admin.ModelAdmin):
     form = EntryForm
-    list_display = ('short_url', 'method', 'status_code', 'user', 'ip', 'app_name', 'created')
+    list_display = ('short_url', 'method', 'status_code', 'user', 'ip', 'app_name', 'created_at')
     list_filter = ('app_name', 'status_code', 'method', UserFilter, CreatedFilter)
     search_fields = ('url', 'ip')
-    date_hierarchy = 'created'
+    date_hierarchy = 'created_at'
     fieldsets = (
         (u'Main', {'fields': ('url', 'method', 'status_code')}),
         (u'Request', {'fields': ('request', 'data', 'response')}),
@@ -77,6 +82,10 @@ class LogAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         """Make all readonly, cause it's a log"""
         return [field.name for field in self.opts.local_fields]
+
+    def queryset(self, request):
+        qs = super(LogAdmin, self).queryset(request)
+        return qs.select_related('user')
 
     def short_url(self, obj):
         return truncatechars(obj.url, 30)

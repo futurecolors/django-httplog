@@ -8,6 +8,13 @@ from httplog import utils
 
 class LogManager(models.Manager):
 
+    def get_user(self, request, response):
+        user = None
+        if hasattr(request, 'user'):
+            if request.user.is_authenticated():
+                user = request.user
+        return user
+
     def create_from_request_response(self, request, response):
 
         # Do not store binary data in database
@@ -19,12 +26,7 @@ class LogManager(models.Manager):
         except Exception:
             body = "--can't-be-loggged--"
 
-        user = None
-        if hasattr(request, 'user'):
-            if request.user.is_authenticated():
-                user = request.user
-        # TODO: support DRF user
-
+        user = self.get_user(request, response)
         resolver = getattr(request, 'resolver_match')
 
         self.create(
