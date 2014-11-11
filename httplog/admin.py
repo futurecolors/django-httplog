@@ -1,7 +1,7 @@
 # coding: utf-8
 import datetime
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.forms import ModelForm
@@ -11,7 +11,7 @@ from django.utils.safestring import mark_safe
 from httplog.models import Entry
 
 
-User = getattr(settings, 'AUTH_USER_MODEL', User)
+User = get_user_model()
 
 
 class EntryForm(ModelForm):
