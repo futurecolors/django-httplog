@@ -19,11 +19,11 @@ I've used it to debug small API for Django, built with DRF.
 .. warning::
 
 This is not for production systems, if you want to handle reasonable amount of
-data, please use `logstash`_, `runescape`_, `django-request`_ or similar solutions.
+data, please use `logstash`_, `Runscope`_, `django-request`_ or similar solutions.
 Each one has it's own focus.
 
 ..  _logstash: http://logstash.net/
-..  _runescape: https://www.runscope.com/
+..  _runscope: https://www.runscope.com/
 ..  _django-request: https://github.com/kylef/django-request
 
 
