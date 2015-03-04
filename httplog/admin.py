@@ -23,6 +23,7 @@ class EntryForm(ModelForm):
 
     class Meta:
         model = Entry
+        exclude = []
 
 
 class UserFilter(SimpleListFilter):

@@ -12,5 +12,5 @@ def dummy(request):
 
 urlpatterns = patterns('',
     url('^api/.+/$', dummy, name='dummy'),
-    url('', include('django.contrib.auth.urls', app_name='auth'))
+    url('', include('django.contrib.auth.urls', app_name='auth', namespace='auth'))
 )
